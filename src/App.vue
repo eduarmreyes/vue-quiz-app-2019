@@ -4,7 +4,7 @@
     <b-container>
       <b-row class="justify-content-center">
         <b-col md="6">
-          <QuestionBox />
+          <QuestionBox :currentQuestion="questions[index]" />
         </b-col>
       </b-row>
     </b-container>
@@ -12,34 +12,38 @@
 </template>
 
 <script>
-import Header from './components/Header.vue'
-import QuestionBox from './components/QuestionBox.vue'
+import Header from "./components/Header.vue";
+import QuestionBox from "./components/QuestionBox.vue";
 
 export default {
-  name: 'app',
+  name: "app",
   components: {
     Header,
-    QuestionBox,
+    QuestionBox
   },
   data() {
     return {
-      questions: []
-    }
+      questions: [],
+      index: 0
+    };
   },
   mounted: function() {
-    fetch("https://opentdb.com/api.php?amount=10&category=27&type=multiple", {method: "get"}).then((response) => {
-      return response.json();
+    fetch("https://opentdb.com/api.php?amount=10&category=27&type=multiple", {
+      method: "get"
     })
-    .then((jsonData) => {
-      this.questions = jsonData.results; 
-    })
+      .then(response => {
+        return response.json();
+      })
+      .then(jsonData => {
+        this.questions = jsonData.results;
+      });
   }
-}
+};
 </script>
 
 <style>
 #app {
-  font-family: 'Avenir', Helvetica, Arial, sans-serif;
+  font-family: "Avenir", Helvetica, Arial, sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   text-align: center;

@@ -1,18 +1,18 @@
 <template>
   <div>
     <b-jumbotron>
-      <template slot="lead">
-        Question here?
-      </template>
+      <template slot="lead">{{currentQuestion.question}}</template>
 
-      <hr class="my-4">
+      <hr class="my-4" />
 
-      <p>
-        List of answers
-      </p>
+      <p>List of answers</p>
 
       <b-button variant="primary" href="#">Send Answer</b-button>
       <b-button variant="success" href="#">Next</b-button>
     </b-jumbotron>
   </div>
 </template>
+
+<script>
+export default { props: { currentQuestion: Object } };
+</script>
