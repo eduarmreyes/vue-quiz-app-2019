@@ -13,6 +13,7 @@
             :currentQuestionIndex="currentQuestionIndex"
             :totalQuestionsNumber="questions.length - 1"
             :next="next"
+            :back="back"
             :increment="increment"
           />
         </b-col>
@@ -43,6 +44,9 @@ export default {
   methods: {
     next() {
       this.currentQuestionIndex += 1;
+    },
+    back() {
+      this.currentQuestionIndex -= 1;
     },
     increment(isCorrect) {
       if (isCorrect) {

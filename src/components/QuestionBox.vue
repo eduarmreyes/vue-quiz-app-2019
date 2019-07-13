@@ -1,7 +1,7 @@
 <template>
   <div>
     <b-jumbotron>
-      <template slot="lead">{{currentQuestion.question}}</template>
+      <template slot="lead">{{parseHTMLCodes(currentQuestion.question)}}</template>
 
       <hr class="my-4" />
 
@@ -9,9 +9,10 @@
         <b-list-group-item
           @click.prevent="selectAnswer(index)"
           :class="answeredClass(index)"
-        >{{answer}}</b-list-group-item>
+        >{{parseHTMLCodes(answer)}}</b-list-group-item>
       </b-list-group>
 
+      <b-button @click="back" variant="info" :disabled="currentQuestionIndex === 0">Back</b-button>
       <b-button
         variant="primary"
         @click="submitAnswer"
@@ -32,6 +33,7 @@ export default {
     currentQuestion: Object,
     currentQuestionIndex: Number,
     totalQuestionsNumber: Number,
+    back: Function,
     next: Function,
     increment: Function
   },
@@ -115,6 +117,14 @@ export default {
           this.correctIndex !== index
         ? "incorrect"
         : "";
+    },
+    parseHTMLCodes(string) {
+      let parser = new DOMParser();
+      let dom = parser.parseFromString(
+        "<!doctype html><body>" + string,
+        "text/html"
+      );
+      return dom.body.textContent;
     }
   }
 };
