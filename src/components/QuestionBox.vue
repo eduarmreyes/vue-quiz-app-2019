@@ -12,7 +12,11 @@
         >{{answer}}</b-list-group-item>
       </b-list-group>
 
-      <b-button variant="primary" @click="submitAnswer">Send Answer</b-button>
+      <b-button
+        variant="primary"
+        @click="submitAnswer"
+        :disabled="selectedIndex === null"
+      >Send Answer</b-button>
       <b-button @click="next" variant="success">Next</b-button>
     </b-jumbotron>
   </div>
@@ -24,6 +28,7 @@ export default {
   data() {
     return {
       selectedIndex: null,
+      correctIndex: null,
       shuffledAnswers: []
     };
   },
@@ -53,6 +58,9 @@ export default {
         this.currentQuestion.correct_answer
       ];
       this.shuffledAnswers = this.shuffleArray(answers);
+      this.correctIndex = this.shuffledAnswers.indexOf(
+        this.currentQuestion.correct_answer
+      );
     },
     /**
      * Randomly shuffle an array
