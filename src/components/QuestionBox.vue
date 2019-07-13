@@ -8,11 +8,11 @@
       <p>List of answers</p>
 
       <b-button variant="primary" href="#">Send Answer</b-button>
-      <b-button variant="success" href="#">Next</b-button>
+      <b-button @click="next" variant="success" href="#">Next</b-button>
     </b-jumbotron>
   </div>
 </template>
 
 <script>
-export default { props: { currentQuestion: Object } };
+export default { props: { currentQuestion: Object, next: Function } };
 </script>

@@ -4,7 +4,7 @@
     <b-container>
       <b-row class="justify-content-center">
         <b-col md="6">
-          <QuestionBox :currentQuestion="questions[index]" />
+          <QuestionBox :currentQuestion="questions[index]" :next="next" />
         </b-col>
       </b-row>
     </b-container>
@@ -26,6 +26,11 @@ export default {
       questions: [],
       index: 0
     };
+  },
+  methods: {
+    next() {
+      this.index += 1;
+    }
   },
   mounted: function() {
     fetch("https://opentdb.com/api.php?amount=10&category=27&type=multiple", {
