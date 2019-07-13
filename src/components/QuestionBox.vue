@@ -23,7 +23,8 @@ export default {
   props: { currentQuestion: Object, next: Function },
   data() {
     return {
-      selectedIndex: null
+      selectedIndex: null,
+      shuffledAnswers: []
     };
   },
   computed: {
@@ -33,9 +34,48 @@ export default {
       return answers;
     }
   },
+  watch: {
+    currentQuestion: {
+      immediate: true,
+      handler() {
+        this.selectedIndex = null;
+        this.shuffleAnswers();
+      }
+    }
+  },
   methods: {
     selectAnswer(index) {
       this.selectedIndex = index;
+    },
+    shuffleAnswers() {
+      const answers = [
+        ...this.currentQuestion.incorrect_answers,
+        this.currentQuestion.correct_answer
+      ];
+      this.shuffledAnswers = this.shuffleArray(answers);
+    },
+    /**
+     * Randomly shuffle an array
+     * https://stackoverflow.com/a/2450976/1293256
+     * @param  {Array} array The array to shuffle
+     * @return {String}      The first item in the shuffled array
+     */
+    shuffleArray(arrayToShuffle) {
+      let currentIndex = arrayToShuffle.length;
+      let temporaryValue, randomIndex;
+
+      while (0 !== currentIndex) {
+        // pick a remaining element
+        randomIndex = Math.floor(Math.random() * currentIndex);
+        currentIndex -= 1;
+
+        // swap it with the current element
+        temporaryValue = arrayToShuffle[currentIndex];
+        arrayToShuffle[currentIndex] = arrayToShuffle[randomIndex];
+        arrayToShuffle[randomIndex] = temporaryValue;
+      }
+
+      return arrayToShuffle;
     }
   }
 };
