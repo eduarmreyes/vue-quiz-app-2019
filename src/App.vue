@@ -4,7 +4,7 @@
     <b-container>
       <b-row class="justify-content-center">
         <b-col md="6">
-          <QuestionBox :currentQuestion="questions[index]" :next="next" />
+          <QuestionBox v-if="questions.length" :currentQuestion="questions[index]" :next="next" />
         </b-col>
       </b-row>
     </b-container>
