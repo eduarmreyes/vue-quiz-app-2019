@@ -9,7 +9,9 @@
         <b-col md="6">
           <QuestionBox
             v-if="questions.length"
-            :currentQuestion="questions[index]"
+            :currentQuestion="questions[currentQuestionIndex]"
+            :currentQuestionIndex="currentQuestionIndex"
+            :totalQuestionsNumber="questions.length - 1"
             :next="next"
             :increment="increment"
           />
@@ -32,14 +34,15 @@ export default {
   data() {
     return {
       questions: [],
-      index: 0,
+      currentQuestionIndex: 0,
+      totalQuestionsNumber: -1,
       numberOfCorrectAnswers: 0,
       numberOfTotalAnswers: 0
     };
   },
   methods: {
     next() {
-      this.index += 1;
+      this.currentQuestionIndex += 1;
     },
     increment(isCorrect) {
       if (isCorrect) {

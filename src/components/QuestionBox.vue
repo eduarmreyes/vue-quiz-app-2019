@@ -17,14 +17,24 @@
         @click="submitAnswer"
         :disabled="selectedIndex === null || answered"
       >Send Answer</b-button>
-      <b-button @click="next" variant="success">Next</b-button>
+      <b-button
+        @click="next"
+        variant="success"
+        :disabled="currentQuestionIndex === totalQuestionsNumber"
+      >Next</b-button>
     </b-jumbotron>
   </div>
 </template>
 
 <script>
 export default {
-  props: { currentQuestion: Object, next: Function, increment: Function },
+  props: {
+    currentQuestion: Object,
+    currentQuestionIndex: Number,
+    totalQuestionsNumber: Number,
+    next: Function,
+    increment: Function
+  },
   data() {
     return {
       selectedIndex: null,
