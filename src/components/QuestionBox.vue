@@ -12,15 +12,15 @@
         >{{answer}}</b-list-group-item>
       </b-list-group>
 
-      <b-button variant="primary" href="#">Send Answer</b-button>
-      <b-button @click="next" variant="success" href="#">Next</b-button>
+      <b-button variant="primary" @click="submitAnswer">Send Answer</b-button>
+      <b-button @click="next" variant="success">Next</b-button>
     </b-jumbotron>
   </div>
 </template>
 
 <script>
 export default {
-  props: { currentQuestion: Object, next: Function },
+  props: { currentQuestion: Object, next: Function, increment: Function },
   data() {
     return {
       selectedIndex: null,
@@ -76,6 +76,13 @@ export default {
       }
 
       return arrayToShuffle;
+    },
+    submitAnswer() {
+      let isCorrect = false;
+      if (this.selectedIndex === this.correctIndex) {
+        isCorrect = true;
+      }
+      this.increment(isCorrect);
     }
   }
 };

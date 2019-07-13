@@ -1,10 +1,18 @@
 <template>
   <div id="app">
-    <Header />
+    <Header
+      :numberOfCorrectAnswers="numberOfCorrectAnswers"
+      :numberOfTotalAnswers="numberOfTotalAnswers"
+    />
     <b-container>
       <b-row class="justify-content-center">
         <b-col md="6">
-          <QuestionBox v-if="questions.length" :currentQuestion="questions[index]" :next="next" />
+          <QuestionBox
+            v-if="questions.length"
+            :currentQuestion="questions[index]"
+            :next="next"
+            :increment="increment"
+          />
         </b-col>
       </b-row>
     </b-container>
@@ -24,12 +32,20 @@ export default {
   data() {
     return {
       questions: [],
-      index: 0
+      index: 0,
+      numberOfCorrectAnswers: 0,
+      numberOfTotalAnswers: 0
     };
   },
   methods: {
     next() {
       this.index += 1;
+    },
+    increment(isCorrect) {
+      if (isCorrect) {
+        this.numberOfCorrectAnswers += 1;
+      }
+      this.numberOfTotalAnswers += 1;
     }
   },
   mounted: function() {
