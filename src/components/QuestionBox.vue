@@ -15,7 +15,7 @@
       <b-button
         variant="primary"
         @click="submitAnswer"
-        :disabled="selectedIndex === null"
+        :disabled="selectedIndex === null || answered"
       >Send Answer</b-button>
       <b-button @click="next" variant="success">Next</b-button>
     </b-jumbotron>
@@ -29,7 +29,8 @@ export default {
     return {
       selectedIndex: null,
       correctIndex: null,
-      shuffledAnswers: []
+      shuffledAnswers: [],
+      answered: false
     };
   },
   computed: {
@@ -44,6 +45,7 @@ export default {
       immediate: true,
       handler() {
         this.selectedIndex = null;
+        this.answered = false;
         this.shuffleAnswers();
       }
     }
@@ -90,6 +92,7 @@ export default {
       if (this.selectedIndex === this.correctIndex) {
         isCorrect = true;
       }
+      this.answered = true;
       this.increment(isCorrect);
     }
   }
